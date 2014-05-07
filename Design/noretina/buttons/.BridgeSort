@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<dirinfo>
+<files>
+<item key='back.png20140417103624' />
+<item key='heart_white.png20140417103634' />
+<item key='heart_blue.png20140417103636' />
+<item key='long_fav_active.png20140417103638' />
+<item key='long_fav_normal.png20140417103640' />
+<item key='long_map_active.png20140417103640' />
+<item key='long_map_grey.png20140417103644' />
+<item key='long_share_active.png20140417103650' />
+<item key='long_share_normal.png20140417103652' />
+<item key='map_white.png20140417103654' />
+<item key='map_blue.png20140417103656' />
+<item key='map_black.png20140417103658' />
+<item key='menu_close.png20140417103700' />
+<item key='menu_fav.png20140417103702' />
+<item key='menu_help.png20140417103704' />
+<item key='menu_settings.png20140417103706' />
+<item key='right_arrow_white.png20140417103708' />
+<item key='share_white.png20140417103710' />
+<item key='share_blue.png20140417103712' />
+<item key='share_black.png20140417103714' />
+<item key='heart_black.png20140417103630' />
+</files>
+</dirinfo>
