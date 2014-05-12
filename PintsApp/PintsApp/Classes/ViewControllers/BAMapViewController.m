@@ -51,6 +51,11 @@
         self.allPlacemarks = [[NSMutableArray alloc] initWithCapacity:0];
         
         [self addAnnotationForData:self.data];
+        
+        if (self.mapView.annotations.count)
+        {
+            [self.mapView selectAnnotation:[self.mapView.annotations lastObject] animated:YES];
+        }
     }
 }
 
@@ -150,7 +155,7 @@
     if (!aAnnotation)
     {
         aAnnotation = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:annotationIdentifier];
-        aAnnotation.animatesDrop = YES;
+        aAnnotation.animatesDrop = NO;
         aAnnotation.canShowCallout = YES;
         aAnnotation.pinColor = MKPinAnnotationColorGreen;
     }

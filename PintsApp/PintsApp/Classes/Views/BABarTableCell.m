@@ -93,7 +93,7 @@
         CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(latitude, longitude);
         self.buttonMap.enabled = [BALocationManager isValidCoordinate:coordinate];
         
-        NSString *urlString = [barData valueForKey:kBarImage640x480Key];
+        NSString *urlString = [barData valueForKey:kBarPrimaryImageKey];
         NSURL *url = [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         NSURLRequest *urlRequest = [[NSURLRequest alloc] initWithURL:url];
 
