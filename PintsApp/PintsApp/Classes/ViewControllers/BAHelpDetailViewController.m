@@ -39,25 +39,17 @@
     
     NSString *htmlFilename = nil;
     
-    if (BAHelpInstructions == self.helpType)
-    {
-        htmlFilename = @"instructions";
-    }
-    else if (BAHelpContactUs == self.helpType)
+    if (BAHelpContactUs == self.helpType)
     {
         htmlFilename = @"contact_us";
     }
-    else if (BAHelpFAQS == self.helpType)
+    else if (BAHelpInstructions == self.helpType)
     {
-        htmlFilename = @"faqs";
+        htmlFilename = @"instructions";
     }
-    else if (BAHelpTC == self.helpType)
+    else if (BAHelpLegal == self.helpType)
     {
-        htmlFilename = @"terms_and_conditions";
-    }
-    else if (BAHelpPrivacy == self.helpType)
-    {
-        htmlFilename = @"privacy";
+        htmlFilename = @"legal";
     }
     
     NSString *path = [[NSBundle mainBundle] pathForResource:htmlFilename ofType:@"html"];

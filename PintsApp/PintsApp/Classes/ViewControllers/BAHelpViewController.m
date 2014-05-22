@@ -104,25 +104,17 @@
         [cell.contentView addSubview:viewSeperator];
     }
     
-    if (BAHelpInstructions == indexPath.row)
-    {
-        cell.textLabel.text = @"INSTRUCTIONS";
-    }
-    else if (BAHelpContactUs == indexPath.row)
+    if (BAHelpContactUs == indexPath.row)
     {
         cell.textLabel.text = @"CONTACT US";
     }
-    else if (BAHelpFAQS == indexPath.row)
+    else if (BAHelpInstructions == indexPath.row)
     {
-        cell.textLabel.text = @"FAQS";
+        cell.textLabel.text = @"INSTRUCTIONS";
     }
-    else if (BAHelpTC == indexPath.row)
+    else if (BAHelpLegal == indexPath.row)
     {
-        cell.textLabel.text = @"TERMS & CONDITIONS";
-    }
-    else if (BAHelpPrivacy == indexPath.row)
-    {
-        cell.textLabel.text = @"PRIVACY";
+        cell.textLabel.text = @"LEGAL";
     }
     
     return cell;

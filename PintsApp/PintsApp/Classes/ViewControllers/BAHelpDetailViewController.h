@@ -10,11 +10,9 @@
 
 typedef enum
 {
-    BAHelpInstructions = 0,
-    BAHelpContactUs,
-    BAHelpFAQS,
-    BAHelpTC,
-    BAHelpPrivacy
+    BAHelpContactUs = 0,
+    BAHelpInstructions,
+    BAHelpLegal
 } BAHelpType;
 
 @interface BAHelpDetailViewController : UIViewController
