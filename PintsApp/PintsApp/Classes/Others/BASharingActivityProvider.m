@@ -17,7 +17,7 @@
     if ([activityType isEqualToString:UIActivityTypePostToFacebook]) {
         shareString = self.message;
     } else if ([activityType isEqualToString:UIActivityTypePostToTwitter]) {
-        shareString = [NSString stringWithFormat:@"%@ via @emerald st", self.message];
+        shareString = [NSString stringWithFormat:@"%@ via @ShortList", self.message];
     } else if ([activityType isEqualToString:UIActivityTypeMail]) {
         shareString = self.message;
     }
