@@ -186,12 +186,8 @@
 
 - (void)shareButtonTappedOnBarTableCell:(BABarTableCell *)cell
 {
-    NSString *shareText = [[cell.barData valueForKey:kBarWebsiteUrlKey] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    if (0 == shareText.length)
-        shareText = [NSString stringWithFormat:@"%@ %@", cell.labelHeader.text, cell.labelSubheader.text];
-    
     BASharingActivityProvider *sharingActivityProvider = [[BASharingActivityProvider alloc] init];
-    sharingActivityProvider.message = shareText;
+    sharingActivityProvider.barData = cell.barData;
     
     NSArray *activityItems = nil;
     

@@ -21,6 +21,8 @@
 		39791A75191D5FDA00ABA082 /* share_active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 39791A67191D5FDA00ABA082 /* share_active@2x.png */; };
 		39791A76191D5FDA00ABA082 /* share_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 39791A68191D5FDA00ABA082 /* share_normal.png */; };
 		39791A77191D5FDA00ABA082 /* share_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 39791A69191D5FDA00ABA082 /* share_normal@2x.png */; };
+		39D1BFDC194CDD71001D8059 /* Search-screen-text.png in Resources */ = {isa = PBXBuildFile; fileRef = 39D1BFDA194CDD71001D8059 /* Search-screen-text.png */; };
+		39D1BFDD194CDD71001D8059 /* Search-screen-text@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 39D1BFDB194CDD71001D8059 /* Search-screen-text@2x.png */; };
 		39E5151D192E4E810010BD15 /* legal.html in Resources */ = {isa = PBXBuildFile; fileRef = 39E5151C192E4E810010BD15 /* legal.html */; };
 		39E8D681191BF9A2002BE346 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39E8D5D0191BF9A2002BE346 /* Main.storyboard */; };
 		39E8D682191BF9A2002BE346 /* BAAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E8D5D5191BF9A2002BE346 /* BAAppDelegate.m */; };
@@ -151,6 +153,8 @@
 		39791A67191D5FDA00ABA082 /* share_active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "share_active@2x.png"; sourceTree = "<group>"; };
 		39791A68191D5FDA00ABA082 /* share_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = share_normal.png; sourceTree = "<group>"; };
 		39791A69191D5FDA00ABA082 /* share_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "share_normal@2x.png"; sourceTree = "<group>"; };
+		39D1BFDA194CDD71001D8059 /* Search-screen-text.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Search-screen-text.png"; sourceTree = "<group>"; };
+		39D1BFDB194CDD71001D8059 /* Search-screen-text@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Search-screen-text@2x.png"; sourceTree = "<group>"; };
 		39E5151C192E4E810010BD15 /* legal.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = legal.html; sourceTree = "<group>"; };
 		39E8D5D1191BF9A2002BE346 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		39E8D5D4191BF9A2002BE346 /* BAAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAAppDelegate.h; sourceTree = "<group>"; };
@@ -454,6 +458,8 @@
 		39E8D61F191BF9A2002BE346 /* Others */ = {
 			isa = PBXGroup;
 			children = (
+				39D1BFDA194CDD71001D8059 /* Search-screen-text.png */,
+				39D1BFDB194CDD71001D8059 /* Search-screen-text@2x.png */,
 				39E8D620191BF9A2002BE346 /* awaitingimage.png */,
 				39E8D621191BF9A2002BE346 /* back.png */,
 				39E8D622191BF9A2002BE346 /* back@2x.png */,
@@ -692,6 +698,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = Sandip;
 				TargetAttributes = {
+					8E0E1B7718ABB072005A3AF0 = {
+						DevelopmentTeam = C3265Q9Y6U;
+					};
 					8E0E1B9B18ABB072005A3AF0 = {
 						TestTargetID = 8E0E1B7718ABB072005A3AF0;
 					};
@@ -738,6 +747,7 @@
 				39E8D6E4191BF9A2002BE346 /* title_white.png in Resources */,
 				39E8D6B7191BF9A2002BE346 /* cocktail@2x.png in Resources */,
 				39E8D6D2191BF9A2002BE346 /* menu_fav.png in Resources */,
+				39D1BFDC194CDD71001D8059 /* Search-screen-text.png in Resources */,
 				39791A72191D5FDA00ABA082 /* map_normal.png in Resources */,
 				39E8D701191BF9D3002BE346 /* PintsAppTests-Info.plist in Resources */,
 				39E8D6BD191BF9A2002BE346 /* heart_normal@2x.png in Resources */,
@@ -761,6 +771,7 @@
 				39E8D6A1191BF9A2002BE346 /* contact_us.html in Resources */,
 				39E8D699191BF9A2002BE346 /* Georgia-Italic.ttf in Resources */,
 				39E8D6C7191BF9A2002BE346 /* long_share_active@2x.png in Resources */,
+				39D1BFDD194CDD71001D8059 /* Search-screen-text@2x.png in Resources */,
 				39E8D6D3191BF9A2002BE346 /* menu_fav@2x.png in Resources */,
 				39E8D6BB191BF9A2002BE346 /* heart_active@2x.png in Resources */,
 				39E8D6D7191BF9A2002BE346 /* menu_settings@2x.png in Resources */,
@@ -967,7 +978,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Scott James (EGPH8RFH7Z)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PintsApp/PintsApp-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/PintsApp/PintsApp-Info.plist";
@@ -983,7 +994,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Scott James (EGPH8RFH7Z)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PintsApp/PintsApp-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/PintsApp/PintsApp-Info.plist";

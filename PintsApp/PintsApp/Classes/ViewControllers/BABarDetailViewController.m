@@ -114,12 +114,8 @@
 
 - (IBAction)shareButtonTapped:(UIButton *)sender
 {
-    NSString *shareText = [[self.barData valueForKey:kBarWebsiteUrlKey] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    if (0 == shareText.length)
-        shareText = [NSString stringWithFormat:@"%@ %@", self.labelHeader.text, [self.buttonSubheader titleForState:UIControlStateNormal]];
-    
     BASharingActivityProvider *sharingActivityProvider = [[BASharingActivityProvider alloc] init];
-    sharingActivityProvider.message = shareText;
+    sharingActivityProvider.barData = self.barData;
     
     NSArray *activityItems = nil;
     

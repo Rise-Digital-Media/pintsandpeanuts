@@ -37,6 +37,7 @@ typedef enum
 @property (strong, nonatomic) IBOutlet UITextField *textFieldSearch;
 @property (strong, nonatomic) IBOutlet UILabel *labelNoResults;
 @property (strong, nonatomic) IBOutlet UIView *activityView;
+@property (strong, nonatomic) IBOutlet UIImageView *imageViewBlankSearch;
 @property (strong, nonatomic) UIButton *buttonSelectedSegment;
 @property (nonatomic, strong) AFHTTPClient *httpClient;
 @property (nonatomic, strong) AFJSONRequestOperation *requestOperation;
@@ -65,6 +66,10 @@ typedef enum
 //    self.imageViewHeader.layer.shadowOpacity = 0.5f;
 //    self.imageViewHeader.layer.shadowPath = shadowPath.CGPath;
 
+    self.textFieldSearch.layer.cornerRadius = 3.0;
+    self.textFieldSearch.layer.masksToBounds = YES;
+    
+    
     CGRect activityViewShadowRect = self.activityView.bounds;
     activityViewShadowRect.origin.x = 8.0;
     activityViewShadowRect.origin.y = activityViewShadowRect.size.height - 10.0;
@@ -189,10 +194,6 @@ typedef enum
             tableViewFrame.size.height = self.view.frame.size.height - tableViewFrame.origin.y;
             self.tableView.frame = tableViewFrame;
             
-            CGRect labelFrame = self.labelNoResults.frame;
-            labelFrame.origin.y = tableViewFrame.origin.y;
-            self.labelNoResults.frame = labelFrame;
-
             self.textFieldSearch.hidden = NO;
             self.textFieldSearch.text = kAppDelegate.searchText;
             
@@ -211,10 +212,6 @@ typedef enum
             tableViewFrame.origin.y = self.textFieldSearch.frame.origin.y - 2.0;
             tableViewFrame.size.height = self.view.frame.size.height - tableViewFrame.origin.y;
             self.tableView.frame = tableViewFrame;
-            
-            CGRect labelFrame = self.labelNoResults.frame;
-            labelFrame.origin.y = tableViewFrame.origin.y;
-            self.labelNoResults.frame = labelFrame;
             
             [self.textFieldSearch resignFirstResponder];
             self.textFieldSearch.text = @"";
@@ -445,7 +442,14 @@ typedef enum
         [self.tableView endUpdates];
     }
     
-    self.labelNoResults.hidden = (self.allData.count > 0);
+    if (BASegmentSearch == self.buttonSelectedSegment.tag)
+    {
+        self.imageViewBlankSearch.hidden = (self.allData.count > 0);
+    }
+    else
+    {
+        self.labelNoResults.hidden = (self.allData.count > 0);
+    }
     
     if (objects)
     {
@@ -549,7 +553,7 @@ typedef enum
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-    self.labelNoResults.hidden = YES;
+    self.imageViewBlankSearch.hidden = YES;
     
     return YES;
 }
@@ -561,7 +565,7 @@ typedef enum
     [self.tableView reloadData];
     [self addRowsWithObjects:[NSArray array]];
     
-    self.labelNoResults.hidden = YES;
+    self.imageViewBlankSearch.hidden = YES;
     
     return YES;
 }
@@ -588,12 +592,8 @@ typedef enum
 
 - (void)shareButtonTappedOnBarTableCell:(BABarTableCell *)cell
 {
-    NSString *shareText = [[cell.barData valueForKey:kBarWebsiteUrlKey] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    if (0 == shareText.length)
-        shareText = [NSString stringWithFormat:@"%@ %@", cell.labelHeader.text, cell.labelSubheader.text];
-
     BASharingActivityProvider *sharingActivityProvider = [[BASharingActivityProvider alloc] init];
-    sharingActivityProvider.message = shareText;
+    sharingActivityProvider.barData = cell.barData;
     
     NSArray *activityItems = nil;
     

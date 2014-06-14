@@ -106,20 +106,24 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <inset key="insetFor6xAndEarlier" minX="0.0" minY="20" maxX="0.0" maxY="-20"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search by name or address" minimumFontSize="17" clearButtonMode="whileEditing" id="EsW-vl-orr" customClass="BATextField">
-                                <rect key="frame" x="4" y="110" width="312" height="30"/>
+                            <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search by name or address" minimumFontSize="17" clearButtonMode="whileEditing" id="EsW-vl-orr" customClass="BATextField">
+                                <rect key="frame" x="4" y="110" width="312" height="40"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <inset key="insetFor6xAndEarlier" minX="0.0" minY="20" maxX="0.0" maxY="-20"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="search"/>
                                 <connections>
                                     <outlet property="delegate" destination="nmU-UF-Rq9" id="McP-VB-rXq"/>
                                 </connections>
                             </textField>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Search-screen-text.png" id="pCY-p0-3rt">
+                                <rect key="frame" x="44" y="210" width="232" height="138"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            </imageView>
                             <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="Ole-R9-VcY">
                                 <rect key="frame" x="85" y="210" width="150" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
@@ -256,6 +260,7 @@
                         <outlet property="buttonNearby" destination="OGa-dI-cXs" id="bio-G2-ybo"/>
                         <outlet property="buttonNew" destination="Qua-pv-NK0" id="a8h-vC-ftG"/>
                         <outlet property="buttonSearch" destination="GTW-lO-UU8" id="qhs-pr-vpP"/>
+                        <outlet property="imageViewBlankSearch" destination="pCY-p0-3rt" id="hN0-5o-SAi"/>
                         <outlet property="imageViewHeader" destination="8S1-O6-C6C" id="H6h-es-ur3"/>
                         <outlet property="labelNoResults" destination="pNe-qb-Ex4" id="KhK-se-3VQ"/>
                         <outlet property="tableView" destination="Jsi-FZ-xoQ" id="VJK-NS-QQ3"/>
@@ -1052,6 +1057,7 @@ EMERALD STREET</string>
         </scene>
     </scenes>
     <resources>
+        <image name="Search-screen-text.png" width="232" height="138"/>
         <image name="SegmentButton.png" width="107" height="30"/>
         <image name="back.png" width="17" height="30"/>
         <image name="burger.png" width="32" height="32"/>
@@ -1079,6 +1085,6 @@ EMERALD STREET</string>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="rEL-7O-L0E"/>
+        <segue reference="nya-N2-JxA"/>
     </inferredMetricsTieBreakers>
 </document>

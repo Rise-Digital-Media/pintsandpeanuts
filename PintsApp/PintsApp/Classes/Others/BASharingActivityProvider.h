@@ -10,6 +10,6 @@
 
 @interface BASharingActivityProvider : UIActivityItemProvider
 
-@property (nonatomic, strong) NSString *message;
+@property (nonatomic, strong) NSDictionary *barData;
 
 @end
