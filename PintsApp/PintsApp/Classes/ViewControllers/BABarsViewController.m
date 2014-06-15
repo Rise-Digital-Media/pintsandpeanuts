@@ -86,7 +86,7 @@ typedef enum
     self.buttonNearby.titleLabel.font = [UIFont fontWithName:@"Gotham-Book" size:12.0];
     self.buttonSearch.titleLabel.font = [UIFont fontWithName:@"Gotham-Book" size:12.0];
     self.buttonNew.titleLabel.font = [UIFont fontWithName:@"Gotham-Book" size:12.0];
-    self.textFieldSearch.font = [UIFont fontWithName:@"Gotham-Book" size:12.0];
+    self.textFieldSearch.font = [UIFont fontWithName:@"Gotham-Book" size:18.0];
     self.labelNoResults.font = [UIFont fontWithName:@"Gotham-Book" size:14.0];
     
     if (nil == self.buttonSelectedSegment)
@@ -183,6 +183,7 @@ typedef enum
         
         self.activityView.hidden = YES;
         self.labelNoResults.hidden = YES;
+        self.imageViewBlankSearch.hidden = YES;
         
         [self.requestOperation cancel];
         self.requestOperation = nil;
@@ -194,6 +195,7 @@ typedef enum
             tableViewFrame.size.height = self.view.frame.size.height - tableViewFrame.origin.y;
             self.tableView.frame = tableViewFrame;
             
+            self.imageViewBlankSearch.hidden = NO;
             self.textFieldSearch.hidden = NO;
             self.textFieldSearch.text = kAppDelegate.searchText;
             
@@ -551,13 +553,6 @@ typedef enum
 
 #pragma mark - UITextFieldDelegate
 
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
-{
-    self.imageViewBlankSearch.hidden = YES;
-    
-    return YES;
-}
-
 - (BOOL)textFieldShouldClear:(UITextField *)textField
 {
     textField.text = @"";
@@ -565,7 +560,7 @@ typedef enum
     [self.tableView reloadData];
     [self addRowsWithObjects:[NSArray array]];
     
-    self.imageViewBlankSearch.hidden = YES;
+    self.imageViewBlankSearch.hidden = NO;
     
     return YES;
 }
