@@ -21,19 +21,12 @@
 
 @implementation BAHelpViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	
+    [[BAAnalytics sharedInstance] screenDisplayed:BAAnalyticsScreenHelp];
+    
     UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRect:self.viewHeader.bounds];
     self.viewHeader.layer.masksToBounds = NO;
     self.viewHeader.layer.shadowColor = [UIColor grayColor].CGColor;
@@ -59,7 +52,7 @@
         if (indexPath)
         {
             BAHelpDetailViewController *helpDetailVC = segue.destinationViewController;
-            helpDetailVC.helpType = indexPath.row;
+            helpDetailVC.helpType = (BAHelpType)indexPath.row;
         }
     }
 }
@@ -149,6 +142,19 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (BAHelpContactUs == indexPath.row)
+    {
+        [[BAAnalytics sharedInstance] eventWithCategory:BAAnalyticsCategoryHelpInteraction action:kBAAnalyticsActionTappedContactUsMenu];
+    }
+    else if (BAHelpInstructions == indexPath.row)
+    {
+        [[BAAnalytics sharedInstance] eventWithCategory:BAAnalyticsCategoryHelpInteraction action:kBAAnalyticsActionTappedInstructionsMenu];
+    }
+    else if (BAHelpLegal == indexPath.row)
+    {
+        [[BAAnalytics sharedInstance] eventWithCategory:BAAnalyticsCategoryHelpInteraction action:kBAAnalyticsActionTappedPrivacyMenu];
+    }
+
     [self performSegueWithIdentifier:@"ShowHelpDetail" sender:self];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

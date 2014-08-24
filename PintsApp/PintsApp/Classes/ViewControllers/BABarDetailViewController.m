@@ -36,19 +36,12 @@
 
 @implementation BABarDetailViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
+    [[BAAnalytics sharedInstance] screenDisplayed:BAAnalyticsScreenBarDetails];
+    
     UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRect:self.viewHeader.bounds];
     self.viewHeader.layer.masksToBounds = NO;
     self.viewHeader.layer.shadowColor = [UIColor grayColor].CGColor;
@@ -88,12 +81,6 @@
     self.scrollView.contentSize = contentSize;
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (IBAction)backButtonTapped:(UIButton *)sender
 {
     [self.navigationController popViewControllerAnimated:YES];
@@ -101,12 +88,15 @@
 
 - (IBAction)subheaderButtonTapped:(UIButton *)sender
 {
+    [[BAAnalytics sharedInstance] eventWithCategory:BAAnalyticsCategoryBarDetailsInteraction action:kBAAnalyticsActionTappedBarAddress];
+    
     NSString *urlString = [[self.barData valueForKey:kBarWebsiteUrlKey] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
 }
 
 - (IBAction)mapButtonTapped:(UIButton *)sender
 {
+    [[BAAnalytics sharedInstance] eventWithCategory:BAAnalyticsCategoryBarDetailsInteraction action:kBAAnalyticsActionTappedMap];
     BAMapViewController *mapVC = [self.storyboard instantiateViewControllerWithIdentifier:@"BAMapVC"];
     mapVC.data = self.barData;
     [self.navigationController pushViewController:mapVC animated:YES];
@@ -114,6 +104,7 @@
 
 - (IBAction)shareButtonTapped:(UIButton *)sender
 {
+    [[BAAnalytics sharedInstance] eventWithCategory:BAAnalyticsCategoryBarDetailsInteraction action:kBAAnalyticsActionTappedShare];
     BASharingActivityProvider *sharingActivityProvider = [[BASharingActivityProvider alloc] init];
     sharingActivityProvider.barData = self.barData;
     
@@ -143,9 +134,15 @@
     sender.selected = !sender.selected;
     
     if (sender.selected)
+    {
         [BADataStore addFavouriteData:self.barData];
+        [[BAAnalytics sharedInstance] eventWithCategory:BAAnalyticsCategoryBarDetailsInteraction action:kBAAnalyticsActionTappedFavourite label:kBAAnalyticsLabelAddedFavourite];
+    }
     else
+    {
         [BADataStore removeFavouriteData:self.barData];
+        [[BAAnalytics sharedInstance] eventWithCategory:BAAnalyticsCategoryBarDetailsInteraction action:kBAAnalyticsActionTappedFavourite label:kBAAnalyticsLabelRemovedFavourite];
+    }
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kFavouriteDidChangeNotification object:self.barData];
 }

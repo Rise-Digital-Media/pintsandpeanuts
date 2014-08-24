@@ -21,19 +21,12 @@
 
 @implementation BAMapViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
+    [[BAAnalytics sharedInstance] screenDisplayed:BAAnalyticsScreenMap];
+    
     UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRect:self.viewHeader.bounds];
     self.viewHeader.layer.masksToBounds = NO;
     self.viewHeader.layer.shadowColor = [UIColor grayColor].CGColor;

@@ -18,4 +18,5 @@
     #import <CoreLocation/CoreLocation.h>
     #import "BAAppDelegate.h"
     #import "BAConstants.h"
+    #import "BAAnalytics.h"
 #endif

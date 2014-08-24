@@ -38,6 +38,8 @@
 {
     [super viewDidLoad];
 	
+    [[BAAnalytics sharedInstance] screenDisplayed:BAAnalyticsScreenFavourites];
+    
     UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRect:self.viewHeader.bounds];
     self.viewHeader.layer.masksToBounds = NO;
     self.viewHeader.layer.shadowColor = [UIColor grayColor].CGColor;
@@ -179,6 +181,8 @@
 
 - (void)mapButtonTappedOnBarTableCell:(BABarTableCell *)cell
 {
+    [[BAAnalytics sharedInstance] eventWithCategory:BAAnalyticsCategoryFavouritesInteraction action:kBAAnalyticsActionTappedMap];
+    
     BAMapViewController *mapVC = [self.storyboard instantiateViewControllerWithIdentifier:@"BAMapVC"];
     mapVC.data = cell.barData;
     [self.navigationController pushViewController:mapVC animated:YES];
@@ -186,6 +190,8 @@
 
 - (void)shareButtonTappedOnBarTableCell:(BABarTableCell *)cell
 {
+    [[BAAnalytics sharedInstance] eventWithCategory:BAAnalyticsCategoryFavouritesInteraction action:kBAAnalyticsActionTappedShare];
+    
     BASharingActivityProvider *sharingActivityProvider = [[BASharingActivityProvider alloc] init];
     sharingActivityProvider.barData = cell.barData;
     
@@ -212,8 +218,14 @@
 
 - (void)favButtonTappedOnBarTableCell:(BABarTableCell *)cell
 {
-    if (!cell.buttonFavourite.selected)
+    if (cell.buttonFavourite.selected)
     {
+        [[BAAnalytics sharedInstance] eventWithCategory:BAAnalyticsCategoryFavouritesInteraction action:kBAAnalyticsActionTappedFavourite label:kBAAnalyticsLabelAddedFavourite];
+    }
+    else
+    {
+        [[BAAnalytics sharedInstance] eventWithCategory:BAAnalyticsCategoryFavouritesInteraction action:kBAAnalyticsActionTappedFavourite label:kBAAnalyticsLabelRemovedFavourite];
+        
         NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
         
         if (indexPath)

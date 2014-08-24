@@ -33,6 +33,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [BALocationManager sharedInstance];
+    [BAAnalytics sharedInstance];
+    
     [self reloadUserDefaults];
     
     return YES;

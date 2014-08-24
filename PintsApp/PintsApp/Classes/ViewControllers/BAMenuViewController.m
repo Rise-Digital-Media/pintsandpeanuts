@@ -34,15 +34,6 @@ typedef enum
 
 @implementation BAMenuViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -55,12 +46,6 @@ typedef enum
     self.viewHeader.layer.shadowPath = shadowPath.CGPath;
 
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -157,10 +142,14 @@ typedef enum
 {
     if (BAMenuFavourites == indexPath.row)
     {
+        [[BAAnalytics sharedInstance] eventWithCategory:BAAnalyticsCategoryMenuInteraction action:kBAAnalyticsActionTappedFavouritesMenu];
+        
         [self performSegueWithIdentifier:@"ShowFavouritesVC" sender:self];
     }
     else if (BAMenuHelp == indexPath.row)
     {
+        [[BAAnalytics sharedInstance] eventWithCategory:BAAnalyticsCategoryMenuInteraction action:kBAAnalyticsActionTappedHelpMenu];
+        
         [self performSegueWithIdentifier:@"ShowHelpVC" sender:self];
     }
     else if (BAMenuSettings == indexPath.row)

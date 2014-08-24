@@ -44,6 +44,7 @@ typedef enum
 @property (nonatomic, strong) NSMutableArray *allData;
 @property (nonatomic, assign) BOOL shouldDownloadData;
 @property (nonatomic, assign) CLLocationCoordinate2D coordinate;
+@property (nonatomic, strong) NSDate *requestStartTime;
 
 - (IBAction)segmentButtonTapped:(UIButton *)sender;
 - (IBAction)menuButtonTapped:(UIButton *)sender;
@@ -56,16 +57,11 @@ typedef enum
 {
     [super viewDidLoad];
     
+    [[BAAnalytics sharedInstance] screenDisplayed:BAAnalyticsScreenNearby];
+    
     if (nil == self.httpClient)
         self.httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@"https://www.google.com"]];
     
-//    UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRect:self.imageViewHeader.bounds];
-//    self.imageViewHeader.layer.masksToBounds = NO;
-//    self.imageViewHeader.layer.shadowColor = [UIColor grayColor].CGColor;
-//    self.imageViewHeader.layer.shadowOffset = CGSizeMake(0.0f, 1.0f);
-//    self.imageViewHeader.layer.shadowOpacity = 0.5f;
-//    self.imageViewHeader.layer.shadowPath = shadowPath.CGPath;
-
     self.textFieldSearch.layer.cornerRadius = 3.0;
     self.textFieldSearch.layer.masksToBounds = YES;
     
@@ -190,6 +186,8 @@ typedef enum
         
         if (BASegmentSearch == self.buttonSelectedSegment.tag)
         {
+            [[BAAnalytics sharedInstance] screenDisplayed:BAAnalyticsScreenSearch];
+            
             CGRect tableViewFrame = self.tableView.frame;
             tableViewFrame.origin.y = self.textFieldSearch.frame.origin.y + self.textFieldSearch.frame.size.height + 2.0;
             tableViewFrame.size.height = self.view.frame.size.height - tableViewFrame.origin.y;
@@ -221,6 +219,8 @@ typedef enum
             
             if (BASegmentNearby == self.buttonSelectedSegment.tag)
             {
+                [[BAAnalytics sharedInstance] screenDisplayed:BAAnalyticsScreenNearby];
+                
                 BOOL shouldDownloadServerData = YES;
                 self.coordinate = [BADataStore getCoordinate];
                 
@@ -260,9 +260,13 @@ typedef enum
                 {
                     [self downloadServerData];
                 }
+                
+                
             }
             else if (BASegmentNew == self.buttonSelectedSegment.tag)
             {
+                [[BAAnalytics sharedInstance] screenDisplayed:BAAnalyticsScreenNew];
+                
                 NSArray *lastResult = [BADataStore getNewResult];
                 if (lastResult.count)
                     [self addRowsWithObjects:lastResult];
@@ -275,6 +279,7 @@ typedef enum
 
 - (IBAction)menuButtonTapped:(UIButton *)sender
 {
+    [[BAAnalytics sharedInstance] eventWithCategory:BAAnalyticsCategoryBarsInteraction action:kBAAnalyticsActionTappedMenu];
     [self.textFieldSearch resignFirstResponder];
     [self.delegate didTapMenuOnBarsViewController:self];
 }
@@ -295,6 +300,8 @@ typedef enum
 {
     if (BASegmentNearby == self.buttonSelectedSegment.tag)
     {
+        [[BAAnalytics sharedInstance] eventWithCategory:BAAnalyticsCategoryBarsInteraction action:kBAAnalyticsActionChangedUserLocation];
+        
         if (self.shouldDownloadData)
         {
             [self downloadServerData];
@@ -364,7 +371,7 @@ typedef enum
         
         if (shouldDownload)
         {
-            urlString = [NSString stringWithFormat:@"%@%@/nearest?latitude=%f&longitude=%f&top=10&skip=%i", kBaseURLString, kAPIPathString, self.coordinate.latitude, self.coordinate.longitude, self.allData.count];
+            urlString = [NSString stringWithFormat:@"%@%@/nearest?latitude=%f&longitude=%f&top=10&skip=%lu", kBaseURLString, kAPIPathString, self.coordinate.latitude, self.coordinate.longitude, (unsigned long)self.allData.count];
         }
         else
         {
@@ -382,17 +389,18 @@ typedef enum
         if (searchText.length)
         {
             NSString *urlEncodedString = [searchText stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-            urlString = [NSString stringWithFormat:@"%@%@?$filter=substringof('%@',Title)%%20or%%20substringof('%@',StandFirst)&$top=10&$skip=%i", kBaseURLString, kAPIPathString, urlEncodedString, urlEncodedString, self.allData.count];
+            urlString = [NSString stringWithFormat:@"%@%@?$filter=substringof('%@',Title)%%20or%%20substringof('%@',StandFirst)&$top=10&$skip=%lu", kBaseURLString, kAPIPathString, urlEncodedString, urlEncodedString, (unsigned long)self.allData.count];
         }
     }
     else if (BASegmentNew == self.buttonSelectedSegment.tag)
     {
-        urlString = [NSString stringWithFormat:@"%@%@?$orderby=LiveDate%%20desc&$top=10&$skip=%i", kBaseURLString, kAPIPathString, self.allData.count];
+        urlString = [NSString stringWithFormat:@"%@%@?$orderby=LiveDate%%20desc&$top=10&$skip=%lu", kBaseURLString, kAPIPathString, (unsigned long)self.allData.count];
     }
     
     if (urlString.length)
     {
         //NSLog(@"urlString\n%@", urlString);
+        self.requestStartTime = [NSDate date];
         
         self.activityView.hidden = NO;
         
@@ -451,6 +459,30 @@ typedef enum
     else
     {
         self.labelNoResults.hidden = (self.allData.count > 0);
+    }
+    
+    if (self.requestStartTime)
+    {
+        if (BASegmentNearby == self.buttonSelectedSegment.tag)
+        {
+            [[BAAnalytics sharedInstance] timingWithCategory:BAAnalyticsCategoryTiming
+                                                         interval:-[self.requestStartTime timeIntervalSinceNow]
+                                                             name:kBAAnalyticsTimingNearbyAPI];
+        }
+        else if (BASegmentSearch == self.buttonSelectedSegment.tag)
+        {
+            [[BAAnalytics sharedInstance] timingWithCategory:BAAnalyticsCategoryTiming
+                                                        interval:-[self.requestStartTime timeIntervalSinceNow]
+                                                            name:kBAAnalyticsTimingSearchAPI];
+        }
+        else if (BASegmentNew == self.buttonSelectedSegment.tag)
+        {
+            [[BAAnalytics sharedInstance] timingWithCategory:BAAnalyticsCategoryTiming
+                                                        interval:-[self.requestStartTime timeIntervalSinceNow]
+                                                            name:kBAAnalyticsTimingNewAPI];
+        }
+        
+        self.requestStartTime = nil;
     }
     
     if (objects)
@@ -522,6 +554,8 @@ typedef enum
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [[BAAnalytics sharedInstance] eventWithCategory:BAAnalyticsCategoryBarsInteraction action:kBAAnalyticsActionTappedBar];
+    
     [self performSegueWithIdentifier:@"ShowBarDetailVCFromBarVC" sender:self];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -546,7 +580,11 @@ typedef enum
         if (actualPosition >= contentHeight)
         {
             if (nil == self.requestOperation)
+            {
+                [[BAAnalytics sharedInstance] eventWithCategory:BAAnalyticsCategoryBarsInteraction action:kBAAnalyticsActionScrolledBars];
+                
                 [self downloadServerData];
+            }
         }
     }
 }
@@ -573,6 +611,8 @@ typedef enum
     [self.tableView reloadData];
     [self downloadServerData];
     
+    [[BAAnalytics sharedInstance] eventWithCategory:BAAnalyticsCategoryBarsInteraction action:kBAAnalyticsActionSearchedBars];
+    
     return YES;
 }
 
@@ -580,6 +620,8 @@ typedef enum
 
 - (void)mapButtonTappedOnBarTableCell:(BABarTableCell *)cell
 {
+    [[BAAnalytics sharedInstance] eventWithCategory:BAAnalyticsCategoryBarsInteraction action:kBAAnalyticsActionTappedMap];
+    
     BAMapViewController *mapVC = [self.storyboard instantiateViewControllerWithIdentifier:@"BAMapVC"];
     mapVC.data = cell.barData;
     [self.navigationController pushViewController:mapVC animated:YES];
@@ -587,6 +629,8 @@ typedef enum
 
 - (void)shareButtonTappedOnBarTableCell:(BABarTableCell *)cell
 {
+    [[BAAnalytics sharedInstance] eventWithCategory:BAAnalyticsCategoryBarsInteraction action:kBAAnalyticsActionTappedShare];
+    
     BASharingActivityProvider *sharingActivityProvider = [[BASharingActivityProvider alloc] init];
     sharingActivityProvider.barData = cell.barData;
     
@@ -609,6 +653,18 @@ typedef enum
                                         nil];
     
     [self presentViewController:activityVC animated:YES completion:NULL];
+}
+
+- (void)favButtonTappedOnBarTableCell:(BABarTableCell *)cell
+{
+    if (cell.buttonFavourite.selected)
+    {
+        [[BAAnalytics sharedInstance] eventWithCategory:BAAnalyticsCategoryBarsInteraction action:kBAAnalyticsActionTappedFavourite label:kBAAnalyticsLabelAddedFavourite];
+    }
+    else
+    {
+        [[BAAnalytics sharedInstance] eventWithCategory:BAAnalyticsCategoryBarsInteraction action:kBAAnalyticsActionTappedFavourite label:kBAAnalyticsLabelRemovedFavourite];
+    }
 }
 
 @end

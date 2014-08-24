@@ -80,6 +80,7 @@
 {
     if ([self.stackedViewController.fullyVisibleViewControllers containsObject:viewController.navigationController])
     {
+        [[BAAnalytics sharedInstance] screenDisplayed:BAAnalyticsScreenMenu];
         [self.stackedViewController expandStack:1 animated:YES];
         [viewController disableUserIntercation:YES];
     }
