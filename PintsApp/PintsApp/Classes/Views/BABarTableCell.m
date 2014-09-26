@@ -94,7 +94,7 @@
         self.buttonMap.enabled = [BALocationManager isValidCoordinate:coordinate];
         
         NSString *urlString = [barData valueForKey:kBarPrimaryImageKey];
-        NSURL *url = [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        NSURL *url = [NSURL URLWithString:urlString];
         NSURLRequest *urlRequest = [[NSURLRequest alloc] initWithURL:url];
 
         __weak BABarTableCell *weakSelf = self;
