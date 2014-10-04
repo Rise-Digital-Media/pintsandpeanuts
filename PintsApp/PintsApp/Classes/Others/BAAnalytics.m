@@ -52,7 +52,7 @@
         //[[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
         
         // Initialize tracker. Replace with your tracking ID.
-        [[GAI sharedInstance] trackerWithTrackingId:@"UA-53770107-1"];
+        [[GAI sharedInstance] trackerWithTrackingId:@"UA-18349334-44"];
         
         self.tracker = [[GAI sharedInstance] defaultTracker];
 	}
