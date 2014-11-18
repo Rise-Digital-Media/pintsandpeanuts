@@ -78,6 +78,7 @@ typedef enum
     self.activityView.layer.shadowOpacity = 0.5f;
     self.activityView.layer.shadowPath = activityViewShadowPath.CGPath;
     self.activityView.layer.cornerRadius = 10.0;
+    self.activityView.hidden = YES;
     
     self.buttonNearby.titleLabel.font = [UIFont fontWithName:@"Gotham-Book" size:12.0];
     self.buttonSearch.titleLabel.font = [UIFont fontWithName:@"Gotham-Book" size:12.0];
@@ -399,7 +400,10 @@ typedef enum
     
     if (urlString.length)
     {
-        //NSLog(@"urlString\n%@", urlString);
+#ifdef DEBUG
+        NSLog(@"urlString\n%@", urlString);
+#endif
+        
         self.requestStartTime = [NSDate date];
         
         self.activityView.hidden = NO;
@@ -420,6 +424,10 @@ typedef enum
             
         } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
          
+#ifdef DEBUG
+            NSLog(@"request\n%@\%@", request, error);
+#endif
+
             [BAHTTPAuditor postError:error];
             
             if ([weakSelf.requestOperation.request.URL.absoluteString isEqualToString:request.URL.absoluteString])

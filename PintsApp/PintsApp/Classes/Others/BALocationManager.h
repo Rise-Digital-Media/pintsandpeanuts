@@ -21,6 +21,5 @@
 + (CLLocationCoordinate2D)getCurrentCoordinate;
 + (BOOL)isValidCoordinate:(CLLocationCoordinate2D)coordinate;
 + (double)distanceFromCoordinate:(CLLocationCoordinate2D)coordinate;
-- (void)didUpdateCurrentCoordinate:(CLLocationCoordinate2D)coordinate;
 
 @end
